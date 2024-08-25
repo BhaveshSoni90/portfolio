@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects</title>
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #ac7373;
+    }
+
+    /* Navbar Styles */
+    /* Include styles for navbar here or import from an external CSS file */
+    /* Copy the relevant styles from your navbar.html here if necessary */
+
+    /* Projects Section Styles */
+    .projects-section {
+      padding: 50px 20px;
+      background-color: #e0f7fa;
+      margin-top: 80px; /* Adjust for fixed navbar */
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 2.5em;
+      margin-bottom: 30px;
+      color: #00796b;
+    }
+
+    .card {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-bottom: 30px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .project-title {
+      font-size: 1.8em;
+      margin-bottom: 15px;
+      color: #007bff;
+    }
+
+    .description {
+      font-size: 1.2em;
+      margin-bottom: 15px;
+      color: #333333;
+    }
+
+    .features {
+      list-style-type: disc;
+      padding-left: 20px;
+      color: #555555;
+      margin-bottom: 15px;
+    }
+
+    .tech {
+      font-size: 1.1em;
+      margin-bottom: 20px;
+      color: #666666;
+    }
+
+    .link {
+      display: inline-block;
+      padding: 12px 24px;
+      font-size: 1.1em;
+      color: #ffffff;
+      background-color: #007bff;
+      border-radius: 5px;
+      text-decoration: none;
+      text-align: center;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .link:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <!-- Placeholder for Navbar -->
+  <div id="navbar-placeholder"></div>
+
+  <!-- Projects Section -->
+  <section id="projects" class="projects-section">
+    <h2 class="title">Projects</h2>
+    <div class="container">
+      
+      <div class="card">
+        <h3 class="project-title">CareCrew</h3>
+        <p class="description">
+          CareCrew is a comprehensive platform designed to bridge the gap between pet owners and service providers. It allows users to easily connect with professionals offering a variety of pet services, including:
+        </p>
+        <ul class="features">
+          <li>Pet grooming</li>
+          <li>Daycare services for pets</li>
+          <li>Training and behavioral support</li>
+          <li>And more tailored pet care services</li>
+        </ul>
+        <p class="tech">
+          Built using the MERN stack (MongoDB, Express.js, React, Node.js), CareCrew ensures a robust and scalable platform for both pet owners and service providers.
+        </p>
+        <a
+          href="https://frontendofcarecrew.vercel.app/"
+          class="link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View Project
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Load Navbar HTML
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('navbar-placeholder').innerHTML = data;
+          const menuToggle = document.querySelector('.menu-toggle');
+          const menuIcons = menuToggle.querySelectorAll('.menu-icon');
+          const navLinks = document.querySelector('.nav-links');
+
+          let scrolled = false;
+          let menuOpen = false;
+
+          // Scroll effect
+          const handleScroll = () => {
+            scrolled = window.scrollY > 50;
+            if (scrolled) {
+              document.querySelector('.navbar').classList.add('scrolled');
+            } else {
+              document.querySelector('.navbar').classList.remove('scrolled');
+            }
+          };
+
+          window.addEventListener('scroll', handleScroll);
+
+          // Menu toggle
+          menuToggle.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            navLinks.classList.toggle('active', menuOpen);
+            menuIcons.forEach(icon => {
+              icon.style.display = (menuOpen && icon.dataset.icon === 'times') || (!menuOpen && icon.dataset.icon === 'bars') ? 'inline' : 'none';
+            });
+          });
+
+          // Close menu on link click
+          navLinks.addEventListener('click', () => {
+            menuOpen = false;
+            navLinks.classList.remove('active');
+            menuIcons.forEach(icon => {
+              icon.style.display = icon.dataset.icon === 'bars' ? 'inline' : 'none';
+            });
+          });
+
+          // Initial call to set navbar state
+          handleScroll();
+        });
+    });
+  </script>
+</body>
+</html>

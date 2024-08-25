@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #ac7373;
+    }
+
+    /* Home Section Styles */
+    .home-content {
+      margin-top: 80px; /* Adjust margin-top to account for the fixed navbar */
+      display: flex;
+      flex-direction: row; /* Default to row for larger screens */
+      align-items: center;
+      justify-content: center;
+      height: 56vh; /* Default height for larger screens */
+      background-color: #534646;
+      padding: 6% 20px;
+      transition: margin-top 0.3s ease, height 0.3s ease, flex-direction 0.3s ease; /* Smooth transitions */
+    }
+
+    .text {
+      flex: 2;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 0; /* Default margin for larger screens */
+    }
+
+    .image img {
+      width: 39%; /* Default width for larger screens */
+      border-radius: 9%;
+      transition: width 0.3s ease; /* Smooth transition for width */
+    }
+
+    .social-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-buttons .button {
+      background-color: #fff;
+      color: #534646;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      font-weight: bold;
+    }
+
+    .social-buttons .button:hover {
+      background-color: #ffd700;
+      color: #534646;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .home-content {
+        flex-direction: column; /* Stack vertically on small screens */
+        height: auto; /* Adjust height for smaller screens */
+        margin-top: 25%;
+      }
+
+      .image {
+        margin-bottom: 20px; /* Add margin for small screens */
+      }
+
+      .image img {
+        width: 30%; /* Adjust width for small screens */
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Placeholder for Navbar -->
+  <div id="navbar-placeholder"></div>
+
+  <!-- Home Content -->
+  <div class="home-content">
+    <div class="image">
+      <img src="bhavesh.jpeg" alt="Bhavesh" />
+    </div>
+    <div class="text">
+      <h1>Hello I'm Bhavesh,</h1>
+      <p>
+        As an MCA graduate with a keen interest in full-stack web development, I have cultivated a solid skill set in HTML, CSS, and JavaScript. My expertise extends to frameworks such as React, Node.js, and MongoDB, and I am also proficient in C++. I excel at creating user-centric websites that are both dynamic and responsive. Alongside my technical skills, I possess strong soft skills including effective communication, team leadership, and collaborative work. These attributes enable me to work seamlessly with teams and drive projects to successful completion. For an in-depth look at my work, please refer to the project section of my portfolio.
+      </p>
+      <div class="social-buttons">
+        <button class="button" onclick="handleIconClick('https://www.linkedin.com/in/bhavesh-soni90/')">LinkedIn</button>
+        <button class="button" onclick="handleIconClick('https://github.com/BhaveshSoni90/')">GitHub</button>
+        <button class="button" onclick="handleIconClick('tel:+919079165109')">Call Me</button>
+        <button class="button" onclick="handleIconClick('mailto:bhaveshsoni9079@gmail.com')">Email Me</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function handleIconClick(url) {
+      window.open(url, '_blank');
+    }
+
+    function handleResize() {
+      const container = document.querySelector('.home-content');
+      const windowWidth = window.innerWidth;
+
+      if (windowWidth > 768) {
+        container.style.flexDirection = 'row';
+        container.style.height = '56vh';
+        container.style.marginTop = '80px'; /* Adjust margin-top to account for the fixed navbar */
+        document.querySelector('.image').style.marginBottom = '0';
+        document.querySelector('.image img').style.width = '39%';
+      } else {
+        container.style.flexDirection = 'column';
+        container.style.height = 'auto';
+        container.style.marginTop = '25%';
+        document.querySelector('.image').style.marginBottom = '20px';
+        document.querySelector('.image img').style.width = '30%';
+      }
+    }
+
+    function handleScroll() {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    }
+
+    // Load Navbar HTML
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('navbar-placeholder').innerHTML = data;
+          const menuToggle = document.querySelector('.menu-toggle');
+          const navLinks = document.querySelector('.nav-links');
+
+          // Menu toggle
+          menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+          });
+
+          // Scroll effect
+          window.addEventListener('scroll', handleScroll);
+          window.addEventListener('resize', handleResize);
+          window.addEventListener('load', () => {
+            handleResize();
+            handleScroll();
+          });
+        });
+    });
+  </script>
+</body>
+</html>
